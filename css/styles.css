@@ -8,3 +8,14 @@ h2{
 #reset{
   display: none;
 }
+span{
+  font-size: 30px;
+  font-family: bold;
+}
+body{
+  text-align: center;
+}
+button{
+  width: 200px;
+  height: 200px;
+}

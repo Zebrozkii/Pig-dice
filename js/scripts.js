@@ -56,6 +56,7 @@ Player.prototype.roll = function(){
 else{
   this.currentRoll = [];
   playerList.changePlayer();
+  alert("You rolled a 1, your turn is over!")
 };
 };
 
