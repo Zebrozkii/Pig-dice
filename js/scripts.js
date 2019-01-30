@@ -13,19 +13,22 @@ PlayerList.prototype.addPlayer = function(player){
 PlayerList.prototype.assignID = function(){
   this.currentID += 1;
   return this.currentID;
-}
+};
 
 PlayerList.prototype.changePlayer = function(){
-  $("#arrow1").toggle();
-  $("#arrow2").toggle();
+
   this.currentTurn += 1
   if(this.currentTurn % 2 != 0){
     this.currentPlayer = this.players[0];
+    $("#arrow1").show();
+    $("#arrow2").hide();
 
   }
   else{
-    this.currentPlayer = this.players[1]
-  }
+    this.currentPlayer = this.players[1];
+    $("#arrow1").hide();
+    $("#arrow2").show();
+  };
 };
 
 PlayerList.prototype.scoreUpdate = function(){
@@ -48,14 +51,12 @@ Player.prototype.updateScore =function(){
 Player.prototype.roll = function(){
   var thisRoll = (Math.floor(Math.random() * (6)) + 1);
   if (thisRoll > 1){
-  console.log(thisRoll);
   this.currentRoll.push(thisRoll);
 }
 else{
-  console.log(thisRoll);
   this.currentRoll = [];
   playerList.changePlayer();
-}
+};
 };
 
 Player.prototype.tallyUp = function(){
@@ -83,17 +84,20 @@ function scoresReset(){
   playerList.players[1].score = 0;
   $("#playerOneScore").text(playerList.players[0].score);
   $("#playerTwoScore").text(playerList.players[1].score);
-  playerList.currentTurn = 0;
+  playerList.currentTurn = 1;
   playerList.currentPlayer = playerList.players[0];
   $("h2").hide();
   $("#arrow1").show();
   $("#arrow2").hide();
+  $("#roll").show();
+  $("#hold").show();
+  $("#reset").hide();
 };
 
 $(function(){
   $("#roll").click(function(){
     playerList.currentPlayer.roll();
-    $("h2").hide()
+    $("h2").hide();
     $("#currentRoll").text(playerList.currentPlayer.tallyUp());
     $("#playerOneScore").text(playerList.players[0].score);
     $("#playerTwoScore").text(playerList.players[1].score);
@@ -106,9 +110,15 @@ $(function(){
     $("#playerTwoScore").text(playerList.players[1].score);
       if(playerList.players[0].score >= 100){
         $("#playerOneCongrats").show();
+        $("#roll").hide();
+        $("#hold").hide();
+        $("#reset").show();
       }
       else if(playerList.players[1].score >= 100){
         $("#playerTwoCongrats").show();
+        $("#roll").hide();
+        $("#hold").hide();
+        $("#reset").show();
       }
   });  //end hold.click function
 
